@@ -99,7 +99,32 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        check = self.retrieve(key)
+        # print(check, "check line 103")
+
+        if check == None: 
+            return check
+        else:
+            hash = self._hash_mod(key)
+            next_node = self.storage[hash].next
+            prev = self.storage[hash]
+            while prev is not None:
+                
+                if prev.key == key:
+                    print(f"prev key: {prev.key}, Key: {key}")
+                    prev.key = None
+                   
+                    return f"deleted key: {key}"
+                elif next_node.key == key:
+                    print(f"next node key: {next_node.key}, key: {key}")
+                    prev.next = next_node.next
+                    next_node = None
+                    return f"deleted key: {key}"
+                else:
+                    next_node = next_node.next
+                    prev = prev.next
+
+    
 
 
     def retrieve(self, key):
@@ -117,6 +142,8 @@ class HashTable:
                 return current.value
             else: 
                 current = current.next
+        
+        return None
         
 
 
@@ -144,6 +171,8 @@ ht.insert("key-7", "val-7")
 ht.insert("key-8", "val-8")
 ht.insert("key-9", "val-9")
 print(ht.retrieve("key-4"))
+print(ht.remove("key-7"))
+print(ht.retrieve("key-7"))
 
 # if __name__ == "__main__":
 #     ht = HashTable(2)

@@ -149,6 +149,41 @@ class HashTable:
                 current = current.next
         
         return None
+
+    def remove(self, key):
+        '''
+        Remove the value stored with the given key.
+
+        Print a warning if the key is not found.
+
+        Fill this in.
+        '''
+        check = self.retrieve(key)
+        # print(check, "check line 103")
+
+        if check == None: 
+            return check
+        else:
+            hash = self._hash_mod(key)
+            next_node = self.storage[hash].next
+            prev = self.storage[hash]
+            while prev is not None:
+                print(f"prev key: {prev.key}, Key: {key}")
+                if prev.key == key:
+                    prev.key = None
+                   
+                    return f"deleted key: {key}"
+                elif next_node.key == key:
+                    print(f"next node key: {next_node.key}, key: {key}")
+                    prev.next = next_node.next
+                    next_node = None
+                    return f"deleted key: {key}"
+                else:
+                    next_node = next_node.next
+                    prev = prev.next
+                    print("line 183")
+
+
                 
             
        
@@ -184,6 +219,19 @@ print(h.retrieve("item_3"), "retrieved item 3")
 print(h.retrieve("item_4"), "retrieved item 4")
 print(h.retrieve("item_5"), "retrieved item 5")
 print(h.retrieve("item_6"), "retrieved item 6")
+print(h.remove("item_2"), "removed item 2")
+
+try:
+    for i in h.storage:
+        if i is not None:
+            print(f"{i.key}, {i.value}, {i.next}")
+except AttributeError:
+    print(i.value, "this is i line 217")
+    pass
+
+print(h.retrieve("item_2"), "attempt to retrieve deleted item")
+print(h.retrieve("item_2"))
+
 
 
 
