@@ -39,6 +39,9 @@ class HashTable:
         '''
         Take an arbitrary key and return a valid integer index
         within the storage capacity of the hash table.
+
+        ie: 
+        int index = hash_function(key) % array.length
         '''
         return self._hash(key) % self.capacity
 
@@ -46,14 +49,34 @@ class HashTable:
     def insert(self, key, value):
         '''
         Store the value with the given key.
-
         Hash collisions should be handled with Linked List Chaining.
+        Fill this in
+        #hash_table_storage(the array)  [hash_mod_key] = Value
 
-        Fill this in.
         '''
-        pass
+        hash = self._hash_mod(key)
+        current = LinkedPair(hash, value)
+        if self.storage[hash] == None:
+            self.storage[hash] = current
+        else: 
+          
+            tail = self.storage[hash]
+            while tail.next is not None:
+                tail = tail.next
+            
+            tail = tail.next
+            tail = current
+           
+
+            current_storage = self.storage[hash]
+
+            if current_storage.next is not None:
+                current_storage = current_storage.next
+
+            current_storage.next = tail
 
 
+        
 
     def remove(self, key):
         '''
@@ -72,9 +95,12 @@ class HashTable:
 
         Returns None if the key is not found.
 
-        Fill this in.
+        Fill this in
         '''
-        pass
+        hash = self._hash_mod(key)
+        if self.storage[hash]:
+            return self.storage[hash].value
+        
 
 
     def resize(self):
