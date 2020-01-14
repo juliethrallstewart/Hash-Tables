@@ -94,25 +94,43 @@ class HashTable:
         #hash_table_storage(the array)  [hash_mod_key] = Value
 
         '''
-        hash = self._hash_mod(key)
-        current = LinkedPair(key, value)
-        if self.storage[hash] == None:
-            self.storage[hash] = current
-        else: 
-          
-            tail = self.storage[hash]
-            while tail.next is not None:
-                tail = tail.next
+        check = self.retrieve(key)
+        print(check, "check line 98")
+
+        if check == None: 
+
+            hash = self._hash_mod(key)
+            current = LinkedPair(key, value)
+
             
-            tail = tail.next
-            tail = current
-           
-            current_storage = self.storage[hash]
 
-            if current_storage.next is not None:
-                current_storage = current_storage.next
+            if self.storage[hash] == None:
+                self.storage[hash] = current
+            else: 
+            
+                tail = self.storage[hash]
+                while tail.next is not None:
+                    tail = tail.next
+                
+                tail = tail.next
+                tail = current
+            
+                current_storage = self.storage[hash]
 
-            current_storage.next = tail
+                if current_storage.next is not None:
+                    current_storage = current_storage.next
+
+                current_storage.next = tail
+        else:
+                hash = self._hash_mod(key)
+                current = self.storage[hash]
+                while current is not None:
+                    if current.key == key:
+                        current.value = value
+                        return current.value
+                    else: 
+                        current = current.next
+
        
     def retrieve(self, key):
         '''
@@ -129,6 +147,8 @@ class HashTable:
                 return current.value
             else: 
                 current = current.next
+        
+        return None
                 
             
        
@@ -148,6 +168,7 @@ h.insert("item_2", 2)
 h.insert("item_3", 3)
 h.insert("item_4", 4)
 h.insert("item_5", 5)
+h.insert("item_5", "new_item_5")
 # print(h.storage, "this is the storage")
 # print(h.storage[2].key, "this is the value")
 
@@ -162,6 +183,8 @@ print(h.retrieve("item_2"), "retrieved item 2")
 print(h.retrieve("item_3"), "retrieved item 3")
 print(h.retrieve("item_4"), "retrieved item 4")
 print(h.retrieve("item_5"), "retrieved item 5")
+print(h.retrieve("item_6"), "retrieved item 6")
+
 
 
 # lp = LinkedPair("tst", 1)

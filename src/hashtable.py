@@ -54,25 +54,42 @@ class HashTable:
         #hash_table_storage(the array)  [hash_mod_key] = Value
 
         '''
-        hash = self._hash_mod(key)
-        current = LinkedPair(key, value)
-        if self.storage[hash] == None:
-            self.storage[hash] = current
-        else: 
-          
-            tail = self.storage[hash]
-            while tail.next is not None:
-                tail = tail.next
+        check = self.retrieve(key)
+        print(check, "check line 98")
+
+        if check == None: 
+
+            hash = self._hash_mod(key)
+            current = LinkedPair(key, value)
+
             
-            tail = tail.next
-            tail = current
-           
-            current_storage = self.storage[hash]
 
-            if current_storage.next is not None:
-                current_storage = current_storage.next
+            if self.storage[hash] == None:
+                self.storage[hash] = current
+            else: 
+            
+                tail = self.storage[hash]
+                while tail.next is not None:
+                    tail = tail.next
+                
+                tail = tail.next
+                tail = current
+            
+                current_storage = self.storage[hash]
 
-            current_storage.next = tail
+                if current_storage.next is not None:
+                    current_storage = current_storage.next
+
+                current_storage.next = tail
+        else:
+                hash = self._hash_mod(key)
+                current = self.storage[hash]
+                while current is not None:
+                    if current.key == key:
+                        current.value = value
+                        return current.value
+                    else: 
+                        current = current.next
 
     def remove(self, key):
         '''
@@ -114,30 +131,44 @@ class HashTable:
 
 
 
-if __name__ == "__main__":
-    ht = HashTable(2)
 
-    ht.insert("line_1", "Tiny hash table")
-    ht.insert("line_2", "Filled beyond capacity")
-    ht.insert("line_3", "Linked list saves the day!")
+ht = HashTable(8)
+ht.insert("key-0", "val-0")
+ht.insert("key-1", "val-1")
+ht.insert("key-2", "val-2")
+ht.insert("key-3", "val-3")
+ht.insert("key-4", "val-4")
+ht.insert("key-5", "val-5")
+ht.insert("key-6", "val-6")
+ht.insert("key-7", "val-7")
+ht.insert("key-8", "val-8")
+ht.insert("key-9", "val-9")
+print(ht.retrieve("key-4"))
 
-    print("")
+# if __name__ == "__main__":
+#     ht = HashTable(2)
 
-    # Test storing beyond capacity
-    print(ht.retrieve("line_1"))
-    print(ht.retrieve("line_2"))
-    print(ht.retrieve("line_3"))
+#     ht.insert("line_1", "Tiny hash table")
+#     ht.insert("line_2", "Filled beyond capacity")
+#     ht.insert("line_3", "Linked list saves the day!")
 
-    # Test resizing
-    old_capacity = len(ht.storage)
-    ht.resize()
-    new_capacity = len(ht.storage)
+#     print("")
 
-    print(f"\nResized from {old_capacity} to {new_capacity}.\n")
+#     # Test storing beyond capacity
+#     print(ht.retrieve("line_1"))
+#     print(ht.retrieve("line_2"))
+#     print(ht.retrieve("line_3"))
 
-    # Test if data intact after resizing
-    print(ht.retrieve("line_1"))
-    print(ht.retrieve("line_2"))
-    print(ht.retrieve("line_3"))
+#     # Test resizing
+#     old_capacity = len(ht.storage)
+#     ht.resize()
+#     new_capacity = len(ht.storage)
 
-    print("")
+#     print(f"\nResized from {old_capacity} to {new_capacity}.\n")
+
+#     # Test if data intact after resizing
+#     print(ht.retrieve("line_1"))
+#     print(ht.retrieve("line_2"))
+#     print(ht.retrieve("line_3"))
+
+#     print("")
