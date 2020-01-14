@@ -66,17 +66,12 @@ class HashTable:
             
             tail = tail.next
             tail = current
-           
-
             current_storage = self.storage[hash]
 
             if current_storage.next is not None:
                 current_storage = current_storage.next
 
             current_storage.next = tail
-
-
-        
 
     def remove(self, key):
         '''
@@ -95,11 +90,15 @@ class HashTable:
 
         Returns None if the key is not found.
 
-        Fill this in
+        Fill this i
         '''
         hash = self._hash_mod(key)
-        if self.storage[hash]:
-            return self.storage[hash].value
+        current = self.storage[hash]
+        while current is not None:
+            if current.key == key:
+                return current.value
+            else: 
+                current = current.next
         
 
 

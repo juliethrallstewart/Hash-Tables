@@ -95,7 +95,7 @@ class HashTable:
 
         '''
         hash = self._hash_mod(key)
-        current = LinkedPair(hash, value)
+        current = LinkedPair(key, value)
         if self.storage[hash] == None:
             self.storage[hash] = current
         else: 
@@ -107,29 +107,13 @@ class HashTable:
             tail = tail.next
             tail = current
            
-
             current_storage = self.storage[hash]
 
             if current_storage.next is not None:
                 current_storage = current_storage.next
 
             current_storage.next = tail
-            print(hash)
-            print(tail.next, "this is tail next 111")
-            print(tail.value, "tail value line 113")
-            print(tail.key, "tail key line 113")
-
-            # current_next = self.storage[hash]
-            # if current_next.next == None:
-            #     current_next.next = current
-            # else:
-            #     current_next.next
-
-        #         def insert_after(self, value):
-        #     current_next = self.next
-        # self.next = ListNode(value, self, current_next)
-        # if current_next:
-        #     current_next.prev = self.next
+       
     def retrieve(self, key):
         '''
         Retrieve the value stored with the given key.
@@ -139,8 +123,14 @@ class HashTable:
         Fill this i
         '''
         hash = self._hash_mod(key)
-        if self.storage[hash]:
-            return self.storage[hash].value
+        current = self.storage[hash]
+        while current is not None:
+            if current.key == key:
+                return current.value
+            else: 
+                current = current.next
+                
+            
        
  
    
@@ -165,13 +155,14 @@ h.insert("item_5", 5)
 # print(lp.key)
 for i in h.storage:
     if i is not None:
-        print(f"{i.key}, {i.value}")
+        print(f"{i.key}, {i.value}, {i.next}")
 
-print(h.retrieve("item_2"), "retrieved item")
+print(h.retrieve("item_1"), "retrieved item 1")
+print(h.retrieve("item_2"), "retrieved item 2")
+print(h.retrieve("item_3"), "retrieved item 3")
+print(h.retrieve("item_4"), "retrieved item 4")
+print(h.retrieve("item_5"), "retrieved item 5")
 
-# while h.storage[4].next is not None:
-    
-#     print(f"value h.storage[4]: {h.storage[4].value}")
 
 # lp = LinkedPair("tst", 1)
 # lp.next = LinkedPair('bob', 2)
