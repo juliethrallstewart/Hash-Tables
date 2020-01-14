@@ -172,3 +172,11 @@ print(h.retrieve("item_5"), "retrieved item 5")
 # while current.next is not None:
 #     print(current.value)
 #     current = current.next
+ht = HashTable(2)
+
+ht.insert("line_1", "Tiny hash table")
+ht.insert("line_2", "Filled beyond capacity")
+ht.insert("line_3", "Linked list saves the day!")
+print(ht.retrieve("line_1"))
+print(ht.retrieve("line_2"))
+print(ht.retrieve("line_3"))

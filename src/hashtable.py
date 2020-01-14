@@ -55,7 +55,7 @@ class HashTable:
 
         '''
         hash = self._hash_mod(key)
-        current = LinkedPair(hash, value)
+        current = LinkedPair(key, value)
         if self.storage[hash] == None:
             self.storage[hash] = current
         else: 
@@ -66,6 +66,7 @@ class HashTable:
             
             tail = tail.next
             tail = current
+           
             current_storage = self.storage[hash]
 
             if current_storage.next is not None:
